@@ -281,13 +281,15 @@ script = ExtResource("2_ac14d")
 Character = NodePath("..")
 CharacterInput = NodePath("../Input")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("CharacterMovement", "CharacterInput")]
 texture_filter = 1
 position = Vector2(8, 3.9999995)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_u2s01")
 animation = &"idle_down"
 script = ExtResource("4_ac14d")
+CharacterMovement = NodePath("../Movement")
+CharacterInput = NodePath("../Input")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(8, 8)

@@ -7,7 +7,7 @@ namespace Game.Gameplay
 {
 	public partial class CharacterMovement : Node
 	{
-		[Signal] public delegate void AnimationEventHandler();
+		[Signal] public delegate void AnimationEventHandler(string animationType);
 
 		[ExportCategory("Nodes")]
 		[Export] public Node2D Character;
@@ -19,6 +19,8 @@ namespace Game.Gameplay
 
 		public override void _Ready()
 		{
+			CharacterInput.Walk += StartWalking;
+			CharacterInput.Turn += StartTurn;
 			Logger.Info("CharacterMovement ready");
 		}
 
@@ -37,6 +39,7 @@ namespace Game.Gameplay
 		{
 			if (!IsMoving())
 			{
+				EmitSignal(SignalName.AnimationEventHandler, "walk");
 				// Calculate next grid position
 				TargetPosition = Character.Position + CharacterInput.Direction * Globals.Instance.GridSize;
 				
@@ -62,6 +65,14 @@ namespace Game.Gameplay
 					StopWalking();
 				}
 			}
+			else
+			{
+				EmitSignal(SignalName.AnimationEventHandler, "idle");
+			}
+		}
+		public void Turn()
+		{
+			EmitSignal(SignalName.AnimationEventHandler, "turn");
 		}
 
 		public void StopWalking()
