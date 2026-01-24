@@ -1,4 +1,4 @@
-
+![alt text](<Screenshot 2026-01-23 211231.png>)
 #🎮 Pokemon XY - Godot C# Edition
 
 A grid-based RPG engine inspired by Pokémon X/Y, built with Godot 4.3+ and C# (.NET 8). This project focuses on a modular architecture using State Machines and custom Loggers for a scalable development experience.
@@ -11,8 +11,8 @@ A grid-based RPG engine inspired by Pokémon X/Y, built with Godot 4.3+ and C# (
 - Animation State Controller: Signal-driven animation system that handles transitions between walking, idling, and turning.
 - Tailwind-Inspired UI: Integrated color palette and design system ready for UI implementation.
 
-
 ## 🗺️ Development Roadmap
+
 Phase 1: Core Engine 🟢
 [x] Custom C# Logger
 
@@ -27,14 +27,16 @@ Phase 2: World & Interaction 🟡
 
 [ ] NPC AI & Wandering
 
-
 ## Installation
+
 1. Clone the repository:
 
 ```
 git clone https://github.com/your-username/pokemon-xy-c.git
 ```
+
 2. Open in Godot:
+
 - Ensure you have the Godot Engine - .NET Edition installed.
 - Import project.godot.
 
@@ -48,6 +50,7 @@ git clone https://github.com/your-username/pokemon-xy-c.git
 - Set Globals.cs as an Autoload in Project Settings.
 
 ## 📂 Project Structure
+
 ```
 scripts/
 ├── core/           # Singletons (Globals, Logger)
@@ -58,9 +61,9 @@ assets/
 ├── sprites/        # Character and NPC sheets
 └── tilesets/       # Environment textures and collisions
 ```
+
 ## Acknowledgements
 
- - [Engine](https://godotengine.org/)
- - Inspiration: Pokémon X/Y (Nintendo/GameFreak)
- - Tutorial Foundations: Inspired by The Nerdy Canuck's Pokémon Clone series.
-
+- [Engine](https://godotengine.org/)
+- Inspiration: Pokémon X/Y (Nintendo/GameFreak)
+- Tutorial Foundations: Inspired by The Nerdy Canuck's Pokémon Clone series.
