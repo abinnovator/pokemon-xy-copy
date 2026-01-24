@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Logger = Game.Core.Logger;
 
 
 namespace Game.Utilities
@@ -14,4 +15,5 @@ namespace Game.Utilities
         public virtual void ExitState() {
             Logger.Info($"Exiting {this.GetType().Name}");
         }
+    }
 }

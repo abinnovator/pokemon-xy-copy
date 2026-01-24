@@ -23,6 +23,8 @@ namespace Game.Gameplay
 		
 		public override void _Ready()
 		{
+			CharacterMovement.Animation += PlayAnimation;
+
 			Logger.Info("CharacterAnimation ready");
 		}
 

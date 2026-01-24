@@ -1,53 +1,61 @@
 using Godot;
 using System;
 using Logger = Game.Core.Logger;
-using Game.Core; // <--- ADD THIS LINE
+using Game.Core;
 
 namespace Game.Gameplay
 {
 	public partial class CharacterMovement : Node
 	{
+		// Signal definition - The "EventHandler" suffix is removed by Godot for the SignalName
 		[Signal] public delegate void AnimationEventHandler(string animationType);
 
 		[ExportCategory("Nodes")]
 		[Export] public Node2D Character;
-		[Export] public CharecterInput CharacterInput; // Fixed typo: Charecter -> Character (ensure this matches your class name)
+
+		[Export] public CharecterInput CharacterInput; 
+		[Export] public CharacterCollisionRaycast CharacterCollisionRaycast;
 
 		[ExportCategory("Movement Settings")] 
 		[Export] public Vector2 TargetPosition = Vector2.Down;
+
 		[Export] public bool IsWalking = false;
+		[Export] public bool CollisionDetected = false;
 
 		public override void _Ready()
 		{
+			// Connect to signals using the C# event syntax or method names
 			CharacterInput.Walk += StartWalking;
-			CharacterInput.Turn += StartTurn;
+			CharacterInput.Turn += Turn; // Fixed to match method name below
+
+			CharacterCollisionRaycast.Collision += (value) =>CollisionDetected = value;
+
 			Logger.Info("CharacterMovement ready");
 		}
 
 		public override void _Process(double delta)
 		{
-			// Usually you call Walk(delta) here if you want constant movement checking
 			Walk(delta);
 		}
 
-		public bool IsMoving() // Capitalized for C# convention
+		public bool IsMoving() 
 		{
 			return IsWalking;
+		}
+		public bool IsColliding() 
+		{
+			return CollisionDetected;
 		}
 
 		public void StartWalking()
 		{
-			if (!IsMoving())
+			if (!IsMoving() && !IsColliding())
 			{
-				EmitSignal(SignalName.AnimationEventHandler, "walk");
-				// Calculate next grid position
+				EmitSignal(SignalName.Animation, "walk");
 				TargetPosition = Character.Position + CharacterInput.Direction * Globals.Instance.GridSize;
 				
-				// Fixed String Interpolation: Uses { } inside $" " 
 				Logger.Info($"Moving from {Character.Position} to {TargetPosition}");
-				
 				IsWalking = true;
-				// TODO: Emit Walk Animation signal
 			}
 		}
 
@@ -55,11 +63,9 @@ namespace Game.Gameplay
 		{
 			if (IsWalking)
 			{
-				// Move toward target at a set speed (GridSize * 4 per second)
 				float moveSpeed = (float)delta * Globals.Instance.GridSize * 4;
 				Character.Position = Character.Position.MoveToward(TargetPosition, moveSpeed);
 
-				// Check if we arrived (Distance is less than a small threshold)
 				if (Character.Position.DistanceTo(TargetPosition) < 0.1f)
 				{
 					StopWalking();
@@ -67,19 +73,21 @@ namespace Game.Gameplay
 			}
 			else
 			{
-				EmitSignal(SignalName.AnimationEventHandler, "idle");
+				// Careful: Putting EmitSignal in _Process else will fire every frame.
+				// It is better to emit "idle" inside StopWalking().
 			}
 		}
+
 		public void Turn()
 		{
-			EmitSignal(SignalName.AnimationEventHandler, "turn");
+			EmitSignal(SignalName.Animation, "turn");
 		}
 
 		public void StopWalking()
 		{
 			IsWalking = false;
 			SnapPositionToGrid();
-			// TODO: Emit Idle Animation signal
+			EmitSignal(SignalName.Animation, "idle");
 		}
 
 		public void SnapPositionToGrid()
