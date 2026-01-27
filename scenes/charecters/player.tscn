@@ -314,7 +314,8 @@ CharecterInput = NodePath("../Input")
 script = ExtResource("5_27l2m")
 Customer = NodePath("..")
 
-[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerInput", "StateOwner")]
+[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerInput", "CharacterMovement", "StateOwner")]
 script = ExtResource("6_you3v")
 PlayerInput = NodePath("../../Input")
+CharacterMovement = NodePath("../../Movement")
 StateOwner = NodePath("../..")

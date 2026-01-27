@@ -28,7 +28,6 @@ namespace Game.Gameplay
 			CharacterInput.Walk += StartWalking;
 			CharacterInput.Turn += Turn; // Fixed to match method name below
 
-			CharacterCollisionRaycast.Collision += (value) =>CollisionDetected = value;
 
 			Logger.Info("CharacterMovement ready");
 		}
@@ -47,13 +46,44 @@ namespace Game.Gameplay
 			return CollisionDetected;
 		}
 
+
+		private bool isTargetOccupied(Vector2 targetPosition)
+		{
+			var spaceState = GetViewport().GetWorld2D().DirectSpaceState;
+			Vector2 adjustedTargetPosition = targetPosition;
+			adjustedTargetPosition.X += 8;
+			adjustedTargetPosition.Y += 8;
+			
+			var query = new PhysicsPointQueryParameters2D
+			{
+				Position = adjustedTargetPosition,
+				CollisionMask = 1,
+				CollideWithAreas = true
+			};
+			var result = spaceState.IntersectPoint(query);
+
+			if (result.Count > 0)
+			{
+				foreach (var collision in result)
+				{
+					var collider = (Node)(GodotObject)collision["collider"];
+					var colliderType = collider.GetType().Name;
+					switch (colliderType)
+					{
+						case "TileMapLayer":
+							return true;
+						default:
+							return true;
+					}
+				}
+			}
+			return false;
+		}
 		public void StartWalking()
 		{
-			if (!IsMoving() && !IsColliding())
+			if (!IsMoving() && !isTargetOccupied(TargetPosition))
 			{
 				EmitSignal(SignalName.Animation, "walk");
-				TargetPosition = Character.Position + CharacterInput.Direction * Globals.Instance.GridSize;
-				
 				Logger.Info($"Moving from {Character.Position} to {TargetPosition}");
 				IsWalking = true;
 			}

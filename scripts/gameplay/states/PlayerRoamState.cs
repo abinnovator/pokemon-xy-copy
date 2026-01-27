@@ -9,6 +9,7 @@ namespace Game.Gameplay.States
 	{
 		[ExportCategory("State vars")]
 		[Export] public PlayerInput PlayerInput;
+		[Export] public CharacterMovement CharacterMovement;
 		public override void _Process(double delta) {
 			GetInputDirection();
 			GetInput(delta);
@@ -38,6 +39,10 @@ namespace Game.Gameplay.States
 			else {}
 		 }
 		public void GetInput (double delta){
+
+			if (CharacterMovement.IsMoving()){
+				return;
+			}
 			if(Modules.IsActionJustReleased()){
 				if (PlayerInput.HoldTime > PlayerInput.HoldThreshhold){
 					PlayerInput.EmitSignal(CharecterInput.SignalName.Walk);
