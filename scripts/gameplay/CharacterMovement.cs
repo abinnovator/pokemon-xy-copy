@@ -68,19 +68,29 @@ namespace Game.Gameplay
 				{
 					var collider = (Node)(GodotObject)collision["collider"];
 					var colliderType = collider.GetType().Name;
-					switch (colliderType)
+					
+					return colliderType switch
 					{
-						case "TileMapLayer":
-							return true;
-						default:
-							return true;
-					}
+						"TileMapLayer" => true,
+						"SceneTrigger"=> false,
+						_ => true,
+					};
 				}
 			}
 			return false;
 		}
 		public void StartWalking()
 		{
+			if (SceneManager.isChanging)
+			{
+				return;
+			}
+			// Fix: Update TargetPosition from input
+			if (CharacterInput.TargetPosition != Vector2.Zero)
+			{
+				TargetPosition = Character.Position + CharacterInput.TargetPosition;
+			}
+			
 			if (!IsMoving() && !isTargetOccupied(TargetPosition))
 			{
 				EmitSignal(SignalName.Animation, "walk");

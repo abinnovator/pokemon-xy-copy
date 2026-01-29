@@ -27,7 +27,7 @@ namespace Game.Gameplay
 			{
 				Collider = GetCollider();
 				string colliderType = Collider.GetType().Name;
-				Logger.Info($"Collided with {colliderType}");
+				// Logger.Info($"Collided with {colliderType}");
 				switch(colliderType)
 				{
 					default:

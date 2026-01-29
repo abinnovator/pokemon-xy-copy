@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://k2c2g7m7kfqt"]
+[gd_scene load_steps=2 format=3 uid="uid://k2c2g7m7kfqt"]
 
-[ext_resource type="PackedScene" uid="uid://chn0n6lqqmtxo" path="res://scenes/levels/small_town.tscn" id="1_x6flg"]
-[ext_resource type="PackedScene" uid="uid://bcx3q45fm60n0" path="res://scenes/charecters/player.tscn" id="2_x6flg"]
+[ext_resource type="Script" uid="uid://bfkvajhrlatg" path="res://scripts/core/GameManager.cs" id="1_lv3y2"]
 
-[node name="GameManager" type="Node"]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("GameViewPort")]
+script = ExtResource("1_lv3y2")
+GameViewPort = NodePath("Control/SubViewportContainer/SubViewport")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -28,8 +29,3 @@ size = Vector2i(1152, 648)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4
-
-[node name="Level" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("1_x6flg")]
-
-[node name="Player" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("2_x6flg")]
-position = Vector2(151, 121)

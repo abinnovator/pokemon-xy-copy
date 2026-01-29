@@ -5,6 +5,7 @@ namespace Game.Core{
 		Warning,
 		Error,
 	}
+	#region Characters
 
 	public enum ECharacterAnimationState{
 		idle_down,
@@ -19,5 +20,28 @@ namespace Game.Core{
 		turn_up,
 		turn_left,
 		turn_right,
+
 	}
+	#endregion
+	#region Levels
+	public enum LevelName{
+		small_town,
+		small_town_greens_house,
+		small_town_purples_house,
+		small_town_lab,
+		small_town_pokemart,
+		small_town_pokecenter,
+		small_town_route_1,
+		small_town_blues_house,
+		small_town_cave_entrance,
+		small_town_cave,
+		
+	}
+	public enum LevelGroups{
+		SPAWNPOINTS,
+		SCENETRIGGERS
+	}
+	#endregion
+
+
 }
