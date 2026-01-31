@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://k2c2g7m7kfqt"]
+[gd_scene load_steps=3 format=3 uid="uid://k2c2g7m7kfqt"]
 
 [ext_resource type="Script" uid="uid://bfkvajhrlatg" path="res://scripts/core/GameManager.cs" id="1_lv3y2"]
+[ext_resource type="PackedScene" uid="uid://ffjr21aedmvd" path="res://scenes/ui/message_manager.tscn" id="2_x6flg"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("GameViewPort")]
 script = ExtResource("1_lv3y2")
@@ -29,3 +30,5 @@ size = Vector2i(1152, 648)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="MessageManager" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("2_x6flg")]

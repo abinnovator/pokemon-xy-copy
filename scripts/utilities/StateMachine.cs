@@ -38,6 +38,22 @@ namespace Game.Utilities
 					childState.SetProcess(childState == CurrentState);
 				}
 			}
+			
+		}
+		public void ChangeState(string newState) { // Changed parameter name to newState
+			var _stats = GetNode<State>(newState);
+			CurrentState?.ExitState();
+			CurrentState = _stats;
+			CurrentState?.EnterState();
+
+			foreach (Node child in GetChildren())
+			{
+				if (child is State childState) // Fixed: Variable name is now unique
+				{
+					childState.SetProcess(childState == CurrentState);
+				}
+			}
+			
 		}
 	}
 }

@@ -33,13 +33,13 @@ position = Vector2(32, 16)
 shape = SubResource("RectangleShape2D_aek01")
 
 [node name="SceneTriggers" type="Node2D" parent="."]
-position = Vector2(80, 96)
+position = Vector2(304, 288)
 
 [node name="SceneTrigger" parent="SceneTriggers" instance=ExtResource("3_h8ha5")]
 position = Vector2(-128, 16)
 
 [node name="SpawnPoints" type="Node2D" parent="."]
-position = Vector2(56, 32)
+position = Vector2(112, 144)
 
 [node name="SpawnPoint" parent="SpawnPoints" instance=ExtResource("4_8bwvj")]
 position = Vector2(64, 160)

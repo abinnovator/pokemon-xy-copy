@@ -22,7 +22,14 @@ namespace Game.Core{
 		turn_right,
 
 	}
+	public enum ECharacterMovement
+	{
+		WALKING,
+		JUMPING
+	}
 	#endregion
+
+
 	#region Levels
 	public enum LevelName{
 		small_town,

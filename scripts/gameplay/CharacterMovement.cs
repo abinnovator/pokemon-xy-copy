@@ -20,12 +20,25 @@ namespace Game.Gameplay
 		[Export] public Vector2 TargetPosition = Vector2.Down;
 
 		[Export] public bool IsWalking = false;
+		public Vector2 StartPosition;
+
 		[Export] public bool CollisionDetected = false;
+		[Export]
+		public bool IsJumping = false;
+		[Export]
+		public float JumpHeight = 10f;
+		[Export]
+		public float LerpSpeed = 2f;
+		[Export]
+		public float Progress = 0f;
+		[Export]
+		public ECharacterMovement ECharacterMovement = ECharacterMovement.WALKING;
+
 
 		public override void _Ready()
 		{
 			// Connect to signals using the C# event syntax or method names
-			CharacterInput.Walk += StartWalking;
+			CharacterInput.Walk += StartMoving;
 			CharacterInput.Turn += Turn; // Fixed to match method name below
 
 
@@ -35,11 +48,17 @@ namespace Game.Gameplay
 		public override void _Process(double delta)
 		{
 			Walk(delta);
+			Jump(delta);
+
+			if(!IsMoving() && !Modules.IsActionJustPressed())
+			{
+				EmitSignal(SignalName.Animation, "idle");
+			}
 		}
 
 		public bool IsMoving() 
 		{
-			return IsWalking;
+			return IsWalking || IsJumping;
 		}
 		public bool IsColliding() 
 		{
@@ -71,7 +90,7 @@ namespace Game.Gameplay
 					
 					return colliderType switch
 					{
-						"TileMapLayer" => true,
+						"TileMapLayer" => GetTileMapLayerCollision((TileMapLayer)collider,adjustedTargetPosition),
 						"SceneTrigger"=> false,
 						_ => true,
 					};
@@ -79,7 +98,56 @@ namespace Game.Gameplay
 			}
 			return false;
 		}
-		public void StartWalking()
+		public bool GetTileMapLayerCollision(TileMapLayer tileMapLayer,Vector2 adjustedTargetPosition)
+		{
+			Vector2I tileCordinates =tileMapLayer.LocalToMap(adjustedTargetPosition);
+			TileData tileData = tileMapLayer.GetCellTileData(tileCordinates);
+
+			if (tileData == null)
+			{
+				return true;
+			}
+			var ledgeDirection = (string)tileData.GetCustomData("Ledge");
+			if (ledgeDirection == null)
+			{
+				return true;
+			}
+			Logger.Info($"Ledge direction: {ledgeDirection}");
+			switch (ledgeDirection)
+			{
+				case "DOWN":
+				if (CharacterInput.Direction == Vector2.Down)
+				{
+					ECharacterMovement = ECharacterMovement.JUMPING;
+					return false;
+				}
+				break;
+				case "UP":
+				if (CharacterInput.Direction == Vector2.Up)
+				{
+					ECharacterMovement = ECharacterMovement.JUMPING;
+					return false;
+				}
+				break;
+				case "RIGHT":
+				if (CharacterInput.Direction == Vector2.Right)
+				{
+					ECharacterMovement = ECharacterMovement.JUMPING;
+					return false;
+				}
+				break;
+				case "LEFT":
+				if (CharacterInput.Direction == Vector2.Left)
+				{
+					ECharacterMovement = ECharacterMovement.JUMPING;
+					return false;
+				}
+				break;
+				
+			}
+			return true;
+		}
+		public void StartMoving()
 		{
 			if (SceneManager.isChanging)
 			{
@@ -95,7 +163,18 @@ namespace Game.Gameplay
 			{
 				EmitSignal(SignalName.Animation, "walk");
 				Logger.Info($"Moving from {Character.Position} to {TargetPosition}");
-				IsWalking = true;
+				
+
+				if (ECharacterMovement == ECharacterMovement.JUMPING)
+				{
+					Progress = 0f;
+					StartPosition = Character.Position;
+					TargetPosition = Character.Position + CharacterInput.TargetPosition * (Globals.Instance.GridSize * 2);
+					IsJumping = true;
+				}
+				else {
+					IsWalking = true;
+				}
 			}
 		}
 
@@ -111,21 +190,35 @@ namespace Game.Gameplay
 					StopWalking();
 				}
 			}
-			else
-			{
-				// Careful: Putting EmitSignal in _Process else will fire every frame.
-				// It is better to emit "idle" inside StopWalking().
-			}
 		}
 
 		public void Turn()
 		{
 			EmitSignal(SignalName.Animation, "turn");
 		}
+		public void Jump(double delta)
+		{
+			if (IsJumping)
+			{
+				Progress += LerpSpeed * (float)delta;
+				Vector2 position = StartPosition.Lerp(TargetPosition, Progress);
+				float parabolicOffset = JumpHeight * (1-4* (Progress -0.5f) * (Progress -0.5f)); // Fixed parabolic formula: 1 - 4(x-0.5)^2
+				position.Y -= parabolicOffset;
+				Character.Position = position;
+
+
+				if (Progress >= 1.0f)
+				{
+					StopWalking();
+				}
+			}
+		}
 
 		public void StopWalking()
 		{
 			IsWalking = false;
+			IsJumping = false;
+			ECharacterMovement = ECharacterMovement.WALKING;
 			SnapPositionToGrid();
 			EmitSignal(SignalName.Animation, "idle");
 		}

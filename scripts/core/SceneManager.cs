@@ -119,7 +119,7 @@ namespace Game.Core
 			var player = GD.Load<PackedScene>("res://scenes/charecters/player.tscn").Instantiate<Player>();
  
 			GameManager.AddPlayer(player);
-			GameManager.GetPlayer().Position = spawnPoint.Position;
+			GameManager.GetPlayer().GlobalPosition = spawnPoint.GlobalPosition;
 			
 		}
  
@@ -134,9 +134,10 @@ namespace Game.Core
 			{
 				throw new Exception("No scene trigger found in level"); 
  
-			}   
-			// Fix 4: Assuming GridSize is the correct property name on Globals
-			GameManager.GetPlayer().Position = sceneTrigger.Position + sceneTrigger.EntryDirection * Globals.Instance.GridSize;
+			}
+			Game.Core.Logger.Info($"Found Trigger: {sceneTrigger.Name} at GlobalPos: {sceneTrigger.GlobalPosition} with Direction: {sceneTrigger.EntryDirection}");
+			GameManager.GetPlayer().GlobalPosition = sceneTrigger.GlobalPosition + sceneTrigger.EntryDirection * Globals.Instance.GridSize;
+			Game.Core.Logger.Info($"Player Warped to: {GameManager.GetPlayer().GlobalPosition}");
 		}
  
  

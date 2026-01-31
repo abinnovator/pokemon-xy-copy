@@ -30,6 +30,10 @@ namespace Game.Gameplay{
 			{
 				return;
 			}
+			if (SceneManager.isChanging)
+			{
+				return;
+			}
 			Game.Core.Logger.Info($"Scene Trigger Entered by: {body.Name} (Type: {body.GetType().Name})");
 			if (Locked)
 			{

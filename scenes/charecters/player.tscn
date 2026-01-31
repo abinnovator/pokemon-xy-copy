@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c0y34af64xcfy" path="res://assets/characters/player.png" id="2_iv631"]
 [ext_resource type="Script" uid="uid://noyq6csxc7hf" path="res://scripts/gameplay/CharacterAnimation.cs" id="4_ac14d"]
 [ext_resource type="Script" uid="uid://gmo2xmi834dp" path="res://scripts/utilities/StateMachine.cs" id="5_27l2m"]
-[ext_resource type="Script" uid="uid://ct7x28x3l055e" path="res://scripts/gameplay/PlayerCamera.cs" id="6_bypac"]
 [ext_resource type="Script" uid="uid://ik46a47bkjg6" path="res://scripts/gameplay/CharacterCollisionRaycast.cs" id="6_c3dia"]
 [ext_resource type="Script" uid="uid://b2ml77617bnxk" path="res://scripts/gameplay/states/PlayerRoamState.cs" id="6_you3v"]
+[ext_resource type="Script" uid="uid://csw4elxgg2e56" path="res://scripts/gameplay/states/PlayerMessageState.cs" id="9_bypac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_08t41"]
 size = Vector2(16, 16)
@@ -303,7 +303,6 @@ CharacterInput = NodePath("../Input")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(8, 8)
 zoom = Vector2(3, 3)
-script = ExtResource("6_bypac")
 
 [node name="CollisonRayCast" type="RayCast2D" parent="." node_paths=PackedStringArray("CharecterInput")]
 position = Vector2(8, 0)
@@ -316,8 +315,14 @@ CharecterInput = NodePath("../Input")
 script = ExtResource("5_27l2m")
 Customer = NodePath("..")
 
-[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerInput", "CharacterMovement", "StateOwner")]
+[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerInput", "CharacterMovement", "StateOwner", "StateMachine")]
 script = ExtResource("6_you3v")
 PlayerInput = NodePath("../../Input")
 CharacterMovement = NodePath("../../Movement")
 StateOwner = NodePath("../..")
+StateMachine = NodePath("..")
+
+[node name="Message" type="Node" parent="StateMachine" node_paths=PackedStringArray("StateOwner", "StateMachine")]
+script = ExtResource("9_bypac")
+StateOwner = NodePath("../..")
+StateMachine = NodePath("..")
