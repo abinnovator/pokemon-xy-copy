@@ -21,6 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1

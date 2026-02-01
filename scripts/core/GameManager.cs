@@ -23,6 +23,7 @@ namespace Game.Core
 			Instance = this;
 			Logger.Info("GameManager ready");
 			SceneManager.ChangeLevel(spawn: true);
+			MessageManager.PlayText("Hey, welcome back to the world of pokemon ash!", "Press Space to close the message");
 		}
 
 		public static SubViewport GetGameViewPort()

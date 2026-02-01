@@ -10,6 +10,9 @@ namespace Game.Gameplay
 		[ExportCategory("Level Basics")]
 		[Export]
 		public LevelName LevelName;
+
+		[Export(PropertyHint.Range, "0,100")]
+		public int encounterRate;
 		[ExportCategory("Camera Limits")]
 		[Export]
 		public int top;

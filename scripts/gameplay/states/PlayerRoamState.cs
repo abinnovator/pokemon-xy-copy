@@ -22,6 +22,7 @@ namespace Game.Gameplay.States
 		public override void _Process(double delta) {
 			GetInputDirection();
 			GetInput(delta);
+			GetUseInput();
 		 }
 		public void GetInputDirection() 
 		{
@@ -67,6 +68,23 @@ namespace Game.Gameplay.States
 
 				if (PlayerInput.HoldTime > PlayerInput.HoldThreshhold){
 					PlayerInput.EmitSignal(CharecterInput.SignalName.Walk);
+				}
+			}
+		}
+		public void GetUseInput() {
+			if (Input.IsActionJustReleased("use")) {
+				var (_, result) = CharacterMovement.GetTargetColliders(CharacterMovement.TargetPosition);
+				foreach (var collision in result)
+				{
+					var collider = (Node)(GodotObject)collision["collider"];
+					var colliderType = collider.GetType().Name;
+					
+					switch(colliderType)
+					{
+						case "Sign":
+							((Sign)collider).PlayMessage();
+							break;
+					};
 				}
 			}
 		}

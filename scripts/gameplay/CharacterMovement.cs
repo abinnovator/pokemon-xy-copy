@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Logger = Game.Core.Logger;
 using Game.Core;
+using Godot.Collections;
 
 namespace Game.Gameplay
 {
@@ -65,8 +66,7 @@ namespace Game.Gameplay
 			return CollisionDetected;
 		}
 
-
-		private bool isTargetOccupied(Vector2 targetPosition)
+		public (Vector2, Array<Dictionary>) GetTargetColliders(Vector2 targetPosition)
 		{
 			var spaceState = GetViewport().GetWorld2D().DirectSpaceState;
 			Vector2 adjustedTargetPosition = targetPosition;
@@ -79,8 +79,14 @@ namespace Game.Gameplay
 				CollisionMask = 1,
 				CollideWithAreas = true
 			};
-			var result = spaceState.IntersectPoint(query);
 
+			return (adjustedTargetPosition, spaceState.IntersectPoint(query));
+		}
+
+
+		private bool isTargetOccupied(Vector2 targetPosition)
+		{
+			var (adjustedTargetPosition, result) = GetTargetColliders(targetPosition);
 			if (result.Count > 0)
 			{
 				foreach (var collision in result)
@@ -90,6 +96,8 @@ namespace Game.Gameplay
 					
 					return colliderType switch
 					{
+						"Sign" => true,
+						"TallGrass" => false,
 						"TileMapLayer" => GetTileMapLayerCollision((TileMapLayer)collider,adjustedTargetPosition),
 						"SceneTrigger"=> false,
 						_ => true,
@@ -107,7 +115,7 @@ namespace Game.Gameplay
 			{
 				return true;
 			}
-			var ledgeDirection = (string)tileData.GetCustomData("Ledge");
+			var ledgeDirection = (string)tileData.GetCustomData("LEDGE");
 			if (ledgeDirection == null)
 			{
 				return true;

@@ -23,6 +23,12 @@ namespace Game.Core
 		public int Delay = 15;
 		[Export]
 		public Array<string> Messages;
+
+		public override void _Ready()
+		{
+			Instance = this;
+		}
+
 		public static void PlayText(params string[] payload)
 		{
 			if (IsReading())
@@ -34,6 +40,8 @@ namespace Game.Core
 				return;
 			}
 			// TODO signal message open
+
+			Signals.EmitGlobalSignal(Signals.SignalName.MessageBoxOpen, true);
 			Instance.Messages = [..payload];
 			ScrollText();
 

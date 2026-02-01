@@ -155,7 +155,10 @@ namespace Game.Core
 			tween.TweenProperty(FadeRect, "color:a", 0.0, 0.25);
 			await ToSignal(tween, "finished");
 		}
-
-
+		public static Level GetCurrentLevel()
+		{
+			return Instance.CurrentLevel;
+		}
 	}
+	
 }

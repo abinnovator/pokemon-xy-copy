@@ -48,6 +48,16 @@ namespace Game.Core{
 		SPAWNPOINTS,
 		SCENETRIGGERS
 	}
+	public enum SignType{
+		METAL,
+		SNOWY_METAL,
+		WOOD,
+		SNOWY_WOOD,
+		LARGE_WOOD,
+		SNOWY_LARGE_WOOD,
+		LARGE_METAL,
+		SNOWY_LARGE_METAL,
+	}
 	#endregion
 
 
