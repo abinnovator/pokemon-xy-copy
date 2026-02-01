@@ -59,6 +59,19 @@ namespace Game.Core{
 		SNOWY_LARGE_METAL,
 	}
 	#endregion
+	#region Npcs
+	public enum NpcAppearance{
+		Gardener,
+		Worker,
+		BugCatcher
+	}
+	public enum NpcMovementType{
+		Static,
+		Wander,
+		Patrol,
+		LookAround
+	}
+	#endregion
 
 
 }

@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://dqmr0egsmbtm2"]
+[gd_scene load_steps=12 format=4 uid="uid://dqmr0egsmbtm2"]
 
 [ext_resource type="Script" uid="uid://byyquek5hybcy" path="res://scripts/gameplay/levels/Level.cs" id="1_es506"]
 [ext_resource type="TileSet" uid="uid://dplfeeajb2qga" path="res://resources/tilesets/level.tres" id="2_7at4i"]
 [ext_resource type="PackedScene" uid="uid://b5hleje725g5f" path="res://scenes/levels/scene_trigger.tscn" id="3_wggpw"]
 [ext_resource type="PackedScene" uid="uid://dtw68t7qjnff6" path="res://scenes/levels/spawn_point.tscn" id="4_78r8n"]
+[ext_resource type="PackedScene" uid="uid://cu8sc0th7d20l" path="res://scenes/charecters/npc.tscn" id="5_7at4i"]
+[ext_resource type="Script" uid="uid://disixwvddvaya" path="res://scripts/gameplay/NpcInputConfig.cs" id="6_wggpw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_es506"]
 size = Vector2(8, 160)
@@ -16,6 +18,13 @@ size = Vector2(8, 208)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78r8n"]
 size = Vector2(8, 160)
+
+[sub_resource type="Resource" id="Resource_78r8n"]
+resource_local_to_scene = true
+script = ExtResource("6_wggpw")
+Messages = ["Ash you have to get going fast proffeser Oak is waiting for you!!"]
+PatrolPoints = []
+metadata/_custom_type_script = "uid://disixwvddvaya"
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_es506")
@@ -70,3 +79,10 @@ position = Vector2(48, 72)
 
 [node name="SpawnPoint" parent="SpawnPoints" instance=ExtResource("4_78r8n")]
 position = Vector2(-8, 16)
+
+[node name="NPC\'s" type="Node2D" parent="."]
+position = Vector2(24, 16)
+
+[node name="NPC" parent="NPC\'s" instance=ExtResource("5_7at4i")]
+position = Vector2(-24, 0)
+NpcInputConfig = SubResource("Resource_78r8n")

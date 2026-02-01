@@ -136,7 +136,7 @@ namespace Game.Core
  
 			}
 			Game.Core.Logger.Info($"Found Trigger: {sceneTrigger.Name} at GlobalPos: {sceneTrigger.GlobalPosition} with Direction: {sceneTrigger.EntryDirection}");
-			GameManager.GetPlayer().GlobalPosition = sceneTrigger.GlobalPosition + sceneTrigger.EntryDirection * Globals.Instance.GridSize;
+			GameManager.GetPlayer().GlobalPosition = sceneTrigger.GlobalPosition + sceneTrigger.EntryDirection * Globals.GridSize;
 			Game.Core.Logger.Info($"Player Warped to: {GameManager.GetPlayer().GlobalPosition}");
 		}
  

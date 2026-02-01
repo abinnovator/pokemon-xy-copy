@@ -29,22 +29,22 @@ namespace Game.Gameplay.States
 			if ( Input.IsActionJustPressed("ui_up"))
 			{
 				PlayerInput.Direction = Vector2.Up;
-				PlayerInput.TargetPosition = new Vector2(0, -Globals.Instance.GridSize);
+				PlayerInput.TargetPosition = new Vector2(0, -Globals.GridSize);
 			}
 			else if ( Input.IsActionJustPressed("ui_down"))
 			{
 				PlayerInput.Direction = Vector2.Down;
-				PlayerInput.TargetPosition = new Vector2(0, Globals.Instance.GridSize);
+				PlayerInput.TargetPosition = new Vector2(0, Globals.GridSize);
 			}
 			else if ( Input.IsActionJustPressed("ui_left"))
 			{
 				PlayerInput.Direction = Vector2.Left;
-				PlayerInput.TargetPosition = new Vector2(-Globals.Instance.GridSize, 0);
+				PlayerInput.TargetPosition = new Vector2(-Globals.GridSize, 0);
 			}
 			else if ( Input.IsActionJustPressed("ui_right"))
 			{
 				PlayerInput.Direction = Vector2.Right;
-				PlayerInput.TargetPosition = new Vector2(Globals.Instance.GridSize, 0);
+				PlayerInput.TargetPosition = new Vector2(Globals.GridSize, 0);
 			}
 			else {}
 		 }
@@ -83,6 +83,9 @@ namespace Game.Gameplay.States
 					{
 						case "Sign":
 							((Sign)collider).PlayMessage();
+							break;
+						case "Npc":
+							((Npc)collider).PlayMessage(PlayerInput.Direction);
 							break;
 					};
 				}

@@ -8,7 +8,7 @@ namespace Game.Core // Fixed capitalization to match Logger
 		public static Globals Instance { get; private set; }
 
 		[ExportCategory("Gameplay")]
-		[Export] public int GridSize = 16; // Standard C# naming is PascalCase
+		public const int GridSize = 16; // Standard C# naming is PascalCase
 		[Export]
 		public ulong Seed = 1337;
 

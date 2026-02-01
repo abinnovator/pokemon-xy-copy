@@ -177,7 +177,7 @@ namespace Game.Gameplay
 				{
 					Progress = 0f;
 					StartPosition = Character.Position;
-					TargetPosition = Character.Position + CharacterInput.TargetPosition * (Globals.Instance.GridSize * 2);
+					TargetPosition = Character.Position + CharacterInput.TargetPosition * (Globals.GridSize * 2);
 					IsJumping = true;
 				}
 				else {
@@ -190,7 +190,7 @@ namespace Game.Gameplay
 		{
 			if (IsWalking)
 			{
-				float moveSpeed = (float)delta * Globals.Instance.GridSize * 4;
+				float moveSpeed = (float)delta * Globals.GridSize * 4;
 				Character.Position = Character.Position.MoveToward(TargetPosition, moveSpeed);
 
 				if (Character.Position.DistanceTo(TargetPosition) < 0.1f)
@@ -233,7 +233,7 @@ namespace Game.Gameplay
 
 		public void SnapPositionToGrid()
 		{
-			int gridSize = Globals.Instance.GridSize;
+			int gridSize = Globals.GridSize;
 			float snappedX = Mathf.Round(Character.Position.X / gridSize) * gridSize;
 			float snappedY = Mathf.Round(Character.Position.Y / gridSize) * gridSize;
 			Character.Position = new Vector2(snappedX, snappedY);
