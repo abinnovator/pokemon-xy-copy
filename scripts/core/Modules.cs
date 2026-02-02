@@ -16,5 +16,13 @@ namespace Game.Core
         {
             return Input.IsActionJustReleased("ui_up") || Input.IsActionJustReleased("ui_down") || Input.IsActionJustReleased("ui_left") || Input.IsActionJustReleased("ui_right");
         }
+        public static Vector2I ConvertVector2ToVector2I (Vector2 vector)
+        {
+            return new Vector2I ((int)vector.X / Globals.GridSize, (int)vector.Y / Globals.GridSize);
+        }
+        public static Vector2 ConvertVector2IToVector2 (Vector2I vector)
+        {
+            return new Vector2 (vector.X* Globals.GridSize, vector.Y* Globals.GridSize);
+        }
     }
 }
