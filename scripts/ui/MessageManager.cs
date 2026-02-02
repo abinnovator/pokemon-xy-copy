@@ -55,6 +55,7 @@ namespace Game.Core
 			if (Instance.Messages.Count == 0)
 			{
 				Instance.Box.Visible = false;
+				Signals.EmitGlobalSignal(Signals.SignalName.MessageBoxOpen, false);
 				return;
 			}
 			Instance.isScrolling = true;

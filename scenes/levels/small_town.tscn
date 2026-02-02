@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://chn0n6lqqmtxo"]
+[gd_scene load_steps=11 format=4 uid="uid://chn0n6lqqmtxo"]
 
 [ext_resource type="TileSet" uid="uid://dplfeeajb2qga" path="res://resources/tilesets/level.tres" id="1_aek01"]
 [ext_resource type="Script" uid="uid://byyquek5hybcy" path="res://scripts/gameplay/levels/Level.cs" id="1_bympv"]
@@ -6,9 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://b5hleje725g5f" path="res://scenes/levels/scene_trigger.tscn" id="3_n78qg"]
 [ext_resource type="PackedScene" uid="uid://eem12pqtyb2s" path="res://scenes/levels/sign.tscn" id="5_6kjy8"]
 [ext_resource type="PackedScene" uid="uid://5jgdqs64hd23" path="res://scenes/levels/tall_grass.tscn" id="6_3nfn8"]
+[ext_resource type="PackedScene" uid="uid://cu8sc0th7d20l" path="res://scenes/charecters/npc.tscn" id="7_00pfa"]
+[ext_resource type="Script" uid="uid://disixwvddvaya" path="res://scripts/gameplay/NpcInputConfig.cs" id="8_gr214"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aek01"]
 size = Vector2(16, 32)
+
+[sub_resource type="Resource" id="Resource_h7y3r"]
+resource_local_to_scene = true
+script = ExtResource("8_gr214")
+NpcMovementType = 1
+Messages = ["Hey! Hows  it going?", "Just minding the flowers!"]
+WanderRadius = 2.0
+PatrolPoints = Array[Vector2]([])
+LookAroundInterval = 2.5
+metadata/_custom_type_script = "uid://disixwvddvaya"
 
 [node name="Level" type="Node2D"]
 texture_filter = 1
@@ -190,3 +202,10 @@ position = Vector2(174, 168)
 [node name="Tall_grass4" parent="Grass/Row 4" instance=ExtResource("6_3nfn8")]
 texture_filter = 1
 position = Vector2(190, 168)
+
+[node name="NPC\'s" type="Node2D" parent="."]
+
+[node name="NPC" parent="NPC\'s" instance=ExtResource("7_00pfa")]
+position = Vector2(38, 144)
+NpcAppearance = 0
+NpcInputConfig = SubResource("Resource_h7y3r")

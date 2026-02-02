@@ -73,7 +73,7 @@ namespace Game.Gameplay.States
 		}
 		public void GetUseInput() {
 			if (Input.IsActionJustReleased("use")) {
-				var (_, result) = CharacterMovement.GetTargetColliders(CharacterMovement.TargetPosition);
+				var (_, result) = CharacterMovement.GetTargetColliders((PlayerInput.Direction* Globals.GridSize) + ((Player)StateOwner).Position);
 				foreach (var collision in result)
 				{
 					var collider = (Node)(GodotObject)collision["collider"];

@@ -13,8 +13,8 @@
 [sub_resource type="Resource" id="Resource_toj7f"]
 resource_local_to_scene = true
 script = ExtResource("2_ydi7b")
-Messages = ["hello"]
-PatrolPoints = []
+Messages = []
+PatrolPoints = Array[Vector2]([])
 metadata/_custom_type_script = "uid://disixwvddvaya"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msjke"]
@@ -50,8 +50,10 @@ CharacterInput = NodePath("../Input")
 script = ExtResource("4_r6yms")
 Customer = NodePath("..")
 
-[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("StateOwner", "StateMachine")]
+[node name="Roam" type="Node" parent="StateMachine" node_paths=PackedStringArray("NpcInput", "CharacterMovement", "StateOwner", "StateMachine")]
 script = ExtResource("5_lrtat")
+NpcInput = NodePath("../../Input")
+CharacterMovement = NodePath("../../Movement")
 StateOwner = NodePath("../..")
 StateMachine = NodePath("..")
 

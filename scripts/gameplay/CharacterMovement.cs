@@ -51,8 +51,16 @@ namespace Game.Gameplay
 			Walk(delta);
 			Jump(delta);
 
-			if(!IsMoving() && !Modules.IsActionJustPressed())
+			if(!IsMoving())
 			{
+				if (GetParent().Name == "Player")
+				{
+					if (Modules.IsActionJustPressed())
+					{
+						return;
+					}
+				}
+				
 				EmitSignal(SignalName.Animation, "idle");
 			}
 		}
@@ -87,11 +95,12 @@ namespace Game.Gameplay
 		private bool isTargetOccupied(Vector2 targetPosition)
 		{
 			var (adjustedTargetPosition, result) = GetTargetColliders(targetPosition);
-			if (result.Count > 0)
-			{
-				foreach (var collision in result)
-				{
-					var collider = (Node)(GodotObject)collision["collider"];
+
+			if (result.Count ==0){
+				return false;
+			}else if (result.Count ==1){
+
+					var collider = (Node)(GodotObject)result[0]["collider"];
 					var colliderType = collider.GetType().Name;
 					
 					return colliderType switch
@@ -102,9 +111,12 @@ namespace Game.Gameplay
 						"SceneTrigger"=> false,
 						_ => true,
 					};
-				}
+				
 			}
-			return false;
+			else
+			{
+				return true;
+			}
 		}
 		public bool GetTileMapLayerCollision(TileMapLayer tileMapLayer,Vector2 adjustedTargetPosition)
 		{
@@ -167,7 +179,7 @@ namespace Game.Gameplay
 				TargetPosition = Character.Position + CharacterInput.TargetPosition;
 			}
 			
-			if (!IsMoving() && !isTargetOccupied(TargetPosition))
+			if (!IsMoving() && !isTargetOccupied(TargetPosition) && SceneManager.GetCurrentLevel().ReservedTile(TargetPosition))
 			{
 				EmitSignal(SignalName.Animation, "walk");
 				Logger.Info($"Moving from {Character.Position} to {TargetPosition}");
@@ -210,7 +222,7 @@ namespace Game.Gameplay
 			{
 				Progress += LerpSpeed * (float)delta;
 				Vector2 position = StartPosition.Lerp(TargetPosition, Progress);
-				float parabolicOffset = JumpHeight * (1-4* (Progress -0.5f) * (Progress -0.5f)); // Fixed parabolic formula: 1 - 4(x-0.5)^2
+				float parabolicOffset = JumpHeight * 4 * Progress * (1 - Progress); // Parabola: 4x(1-x) peaks at 0.5
 				position.Y -= parabolicOffset;
 				Character.Position = position;
 
@@ -224,6 +236,7 @@ namespace Game.Gameplay
 
 		public void StopWalking()
 		{
+			SceneManager.GetCurrentLevel().ReleaseTile(TargetPosition);
 			IsWalking = false;
 			IsJumping = false;
 			ECharacterMovement = ECharacterMovement.WALKING;
