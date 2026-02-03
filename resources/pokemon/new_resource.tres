@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PokemonResource" load_steps=2 format=3 uid="uid://s3cjh0xfeya4"]
+
+[ext_resource type="Script" uid="uid://dt70pvk121ua1" path="res://scripts/gameplay/Pokemon/PokemonResource.cs" id="1_ug008"]
+
+[resource]
+script = ExtResource("1_ug008")
+LearnableMoves = null
+LevelUpMoves = null
+metadata/_custom_type_script = "uid://dt70pvk121ua1"
