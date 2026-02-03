@@ -50,10 +50,9 @@ public partial class NpcRoamState : State
 			return;
 		}
 		Vector2 currentPosition = ((Npc)StateOwner).Position;
-		
+		var level = SceneManager.GetCurrentLevel();
 		if (currentPatrolPoints.Count == 0)
 		{
-			var level = SceneManager.GetCurrentLevel();
 			var patrolPoint = NpcInput.NpcInputConfig.PatrolPoints[NpcInput.NpcInputConfig.PatrolIndex];
 			NpcInput.NpcInputConfig.PatrolIndex = (NpcInput.NpcInputConfig.PatrolIndex + 1) % NpcInput.NpcInputConfig.PatrolPoints.Count;
 			var pathing = level.Grid.GetIdPath(Modules.ConvertVector2ToVector2I(currentPosition), Modules.ConvertVector2ToVector2I(patrolPoint));
@@ -63,26 +62,28 @@ public partial class NpcRoamState : State
 				var point = pathing[i];
 				currentPatrolPoints.Add(Modules.ConvertVector2IToVector2(point));
 			}
+			level.CurrentControlPoints = currentPatrolPoints;
 			if (currentPatrolPoints.Count == 0)
 			{
 				return;
 			}
 		}
-		else if(currentPatrolPoints.Count > 1) {
+		if (currentPosition.DistanceTo(currentPatrolPoints[0]) < Globals.GridSize / 2f){
 			currentPatrolPoints.RemoveAt(0);
+			if (currentPatrolPoints.Count == 0)
+			{
+				return;
+			}
 		}
-		else if(currentPatrolPoints.Count == 1) {
-			currentPatrolPoints.RemoveAt(0);
-			return;
-		}
-		NpcInput.TargetPosition = currentPatrolPoints[0];
-		Vector2 difference = NpcInput.TargetPosition - currentPosition;
+		Vector2 difference = currentPatrolPoints[0] - currentPosition;
 		if (Mathf.Abs(difference.X) > Math.Abs(difference.Y)){
 			NpcInput.Direction = difference.X > 0  ? Vector2.Right : Vector2.Left;
 		}
 		else {
 			NpcInput.Direction = difference.Y > 0  ? Vector2.Down : Vector2.Up;
 		}
+		NpcInput.TargetPosition = NpcInput.Direction * Globals.GridSize;
+		level.TargetPosition = currentPatrolPoints[0];
 		NpcInput.EmitSignal(CharecterInput.SignalName.Walk);
 		timer = interval;
 

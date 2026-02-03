@@ -37,7 +37,8 @@ resource_local_to_scene = true
 script = ExtResource("8_gr214")
 NpcMovementType = 2
 Messages = Array[String]([])
-PatrolPoints = Array[Vector2]([Vector2(368, 240), Vector2(386, 240)])
+PatrolPoints = Array[Vector2]([Vector2(322, 127)])
+PatrolMoveInterval = 1.0
 metadata/_custom_type_script = "uid://disixwvddvaya"
 
 [node name="Level" type="Node2D"]
@@ -218,6 +219,7 @@ texture_filter = 1
 position = Vector2(190, 168)
 
 [node name="NPC\'s" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NPC" parent="NPC\'s" instance=ExtResource("7_00pfa")]
 position = Vector2(38, 144)
@@ -225,10 +227,10 @@ NpcAppearance = 0
 NpcInputConfig = SubResource("Resource_h7y3r")
 
 [node name="Bug_catcher" parent="NPC\'s" instance=ExtResource("7_00pfa")]
-position = Vector2(174, 192)
+position = Vector2(175, 176)
 NpcAppearance = 2
 NpcInputConfig = SubResource("Resource_00pfa")
 
 [node name="Worker" parent="NPC\'s" instance=ExtResource("7_00pfa")]
-position = Vector2(70, 144)
+position = Vector2(73, 144)
 NpcInputConfig = SubResource("Resource_gr214")

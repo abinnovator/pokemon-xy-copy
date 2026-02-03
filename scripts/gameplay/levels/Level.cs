@@ -3,6 +3,7 @@ using System;
 using Game.Core;
 using Logger = Game.Core.Logger;
 using System.Collections.Generic;
+using Godot.Collections;
 
 namespace Game.Gameplay
 {
@@ -26,6 +27,8 @@ namespace Game.Gameplay
 
 		public readonly HashSet<Vector2> reservedTiles = [];
 		public AStarGrid2D Grid;
+		public Vector2 TargetPosition = Vector2.Zero;
+		public Array<Vector2> CurrentControlPoints = [];
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
@@ -103,6 +106,12 @@ namespace Game.Gameplay
 					DrawRect(new Rect2(worldPosition, Grid.CellSize), color, filled: true);
 					
 				}
+			}
+			foreach (var point in CurrentControlPoints){
+				DrawRect(new Rect2(point, Grid.CellSize), Colors.Black, filled: true);
+			}
+			if (TargetPosition != Vector2.Zero){
+				DrawRect(new Rect2(TargetPosition, Grid.CellSize), Colors.Cyan, filled: true);
 			}
 		}
 		public bool ReservedTile(Vector2 position)
