@@ -1,4 +1,7 @@
 using Godot;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Game.Core
 {
@@ -24,5 +27,25 @@ namespace Game.Core
         {
             return new Vector2 (vector.X* Globals.GridSize, vector.Y* Globals.GridSize);
         }
+
+        private static readonly System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
+        public static async Task<T> FetchDataFromPokeApi<T>(string url){
+			try
+            {
+                var response = await httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Logger.Error($"Failed to fetch data from {url}: {response.StatusCode}");
+                    return default;
+                }
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch(System.Exception ex)
+            {
+                Logger.Error($"Failed to fetch data from {url}: {ex.Message}");
+                return default;
+            }
+		}
     }
 }

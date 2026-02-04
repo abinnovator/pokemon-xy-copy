@@ -1,6 +1,7 @@
 using Game.Core;
 using Godot;
 using Godot.Collections;
+using System.Collections.Generic;
 using System;
 using Logger = Game.Core.Logger;
 
@@ -32,7 +33,7 @@ public partial class Sign : StaticBody2D
 
 	private Sprite2D _sprite2D;
 
-	private readonly Dictionary<SignType, AtlasTexture> _textures = new ()
+	private readonly System.Collections.Generic.Dictionary<SignType, AtlasTexture> _textures = new ()
 	{
 		{ SignType.METAL, GD.Load<AtlasTexture>("res://resources/textures/sign_metal.tres") },
 		{ SignType.SNOWY_METAL, GD.Load<AtlasTexture>("res://resources/textures/sign_snowy_metal.tres") },

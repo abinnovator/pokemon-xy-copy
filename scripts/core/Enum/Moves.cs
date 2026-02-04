@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Game.Core;
 
 public static class MovesEnum {
@@ -16,23 +18,23 @@ public static class MovesEnum {
 		AllOpponents,
 		EntireField
 	}
-    public static class MovesEnum 
+    public static class MovesMaps 
 	{
         public static readonly Dictionary<string, MoveCategory> CategoryMap = new(){
-            {"Physical", MoveCategory.Physical},
-            {"Special", MoveCategory.Special},
-            {"Status", MoveCategory.Status}
+            {"physical", MoveCategory.Physical},
+            {"special", MoveCategory.Special},
+            {"status", MoveCategory.Status}
         };
 
         public static readonly Dictionary<string, MoveTarget> MoveTargetMap = new(){
-            {"SpecificMove", MoveTarget.SpecificMove},
-            {"UsersField", MoveTarget.UsersField},
-            {"User", MoveTarget.User},
-            {"RandomOpponent", MoveTarget.RandomOpponent},
-            {"AllOtherPokemon", MoveTarget.AllOtherPokemon},
-            {"SelectedPokemon", MoveTarget.SelectedPokemon},
-            {"AllOpponents", MoveTarget.AllOpponents},
-            {"EntireField", MoveTarget.EntireField}
+            {"specific-move", MoveTarget.SpecificMove},
+            {"users-field", MoveTarget.UsersField},
+            {"user", MoveTarget.User},
+            {"random-opponent", MoveTarget.RandomOpponent},
+            {"all-other-pokemon", MoveTarget.AllOtherPokemon},
+            {"selected-pokemon", MoveTarget.SelectedPokemon},
+            {"all-opponents", MoveTarget.AllOpponents},
+            {"entire-field", MoveTarget.EntireField}
         };
     }
 }

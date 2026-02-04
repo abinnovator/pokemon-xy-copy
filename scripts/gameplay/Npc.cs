@@ -2,6 +2,7 @@ using Game.Core;
 using Game.Utilities;
 using Godot;
 using Godot.Collections;
+using System.Collections.Generic;
 using System;
 using Logger = Game.Core.Logger;
 
@@ -34,7 +35,7 @@ public partial class Npc : CharacterBody2D
 	private StateMachine stateMachine;
 	private CharacterMovement characterMovement;
 
-	private readonly Dictionary<NpcAppearance, SpriteFrames> appearanceFrames = new(){
+	private readonly System.Collections.Generic.Dictionary<NpcAppearance, SpriteFrames> appearanceFrames = new(){
 		{NpcAppearance.Gardener, GD.Load<SpriteFrames>("res://resources/spriteframes/gardener.tres")},
 		{NpcAppearance.Worker, GD.Load<SpriteFrames>("res://resources/spriteframes/worker.tres")},
 		{NpcAppearance.BugCatcher, GD.Load<SpriteFrames>("res://resources/spriteframes/bug_catcher.tres")},

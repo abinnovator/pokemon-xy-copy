@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Godot.Collections;
 using Game.Core;
 
@@ -42,7 +43,7 @@ public partial class PokemonResource : Resource
     [Export]
     public Array<string> LearnableMoves;
     [Export]
-    public Dictionary<string,int> LevelUpMoves;
+    public Godot.Collections.Dictionary<string,int> LevelUpMoves;
     [ExportCategory("Sprites")]
     [Export]
     public Texture2D FrontSprite;

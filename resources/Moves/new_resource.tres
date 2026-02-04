@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MoveResource" load_steps=2 format=3 uid="uid://dlnfi18ymr1b6"]
+
+[ext_resource type="Script" uid="uid://dr862v81xh0xx" path="res://scripts/gameplay/moves/MoveResource.cs" id="1_u83wx"]
+
+[resource]
+script = ExtResource("1_u83wx")
+metadata/_custom_type_script = "uid://dr862v81xh0xx"

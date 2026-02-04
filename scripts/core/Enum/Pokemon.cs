@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Game.Core;
 
 public enum PokemonType{
@@ -34,7 +36,7 @@ public enum PokemonAilment
     Trap,
     LeechSeed,
     Disable,
-    Unkown
+    Unknown
     
 }
 public enum PokemonStat
@@ -70,7 +72,7 @@ public static class PokemonEnum{
         { "steel", PokemonType.Steel },
         { "fairy", PokemonType.Fairy },
     };
-    public static readonly Dictionary<string, Pokemon Ailment> AilmentMap = new()
+    public static readonly Dictionary<string, PokemonAilment> AilmentMap = new()
     {
         { "none", PokemonAilment.None },
         { "burn", PokemonAilment.Burn },
@@ -84,7 +86,7 @@ public static class PokemonEnum{
         { "leech-seed", PokemonAilment.LeechSeed },
         { "disable", PokemonAilment.Disable },
         { "unknown", PokemonAilment.Unknown }
-    }
+    };
     public static readonly Dictionary<string, PokemonStat> StatMap = new()
     {
         { "hp", PokemonStat.Hp },
