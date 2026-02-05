@@ -10,7 +10,7 @@ namespace Game.Core // Fixed capitalization to match Logger
 		[ExportCategory("Gameplay")]
 		public const int GridSize = 16; // Standard C# naming is PascalCase
 		public const int MOVE_NUMBERS = 165;
-		public const int POKEMON_NUMBERS = 1024;
+		public const int POKEMON_NUMBERS = 151;
 		[Export]
 		public ulong Seed = 1337;
 
