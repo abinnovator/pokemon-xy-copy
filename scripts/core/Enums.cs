@@ -32,16 +32,13 @@ namespace Game.Core{
 
 	#region Levels
 	public enum LevelName{
-		small_town,
-		small_town_greens_house,
-		small_town_purples_house,
-		small_town_lab,
-		small_town_pokemart,
-		small_town_pokecenter,
-		small_town_route_1,
-		small_town_blues_house,
-		small_town_cave_entrance,
-		small_town_cave,
+		
+		pallet_town,
+		pallet_town_ashs_house,
+		pallet_town_ashs_house_f1,
+		pallet_town_rivals_house,
+		pallet_town_lab,
+		route1
 		
 	}
 	public enum LevelGroups{

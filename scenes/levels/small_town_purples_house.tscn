@@ -64,6 +64,7 @@ position = Vector2(80, 96)
 
 [node name="SceneTrigger" parent="SceneTriggers" instance=ExtResource("3_o6cho")]
 position = Vector2(-48, -16)
+TargetLevelName = 10
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 position = Vector2(56, 32)

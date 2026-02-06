@@ -47,7 +47,7 @@ namespace Game.Core
 			Game.Core.Logger.Info("Scene Manager Ready");
 		}
 
-		public static async void ChangeLevel(LevelName levelName = LevelName.small_town, int trigger = 0, bool spawn = false)
+		public static async void ChangeLevel(LevelName levelName = LevelName.pallet_town, int trigger = 0, bool spawn = false)
 		{
 			Game.Core.Logger.Info($"ChangeLevel called for {levelName}. isChanging: {isChanging}");
 			while (isChanging){

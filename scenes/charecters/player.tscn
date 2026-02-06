@@ -302,7 +302,7 @@ CharacterMovement = NodePath("../Movement")
 CharacterInput = NodePath("../Input")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(8, 8)
+position = Vector2(9, 8)
 zoom = Vector2(3, 3)
 script = ExtResource("6_1gmjr")
 
